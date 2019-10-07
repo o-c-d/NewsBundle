@@ -1,0 +1,19 @@
+services:
+  # _defaults:
+  #   autowire: true      # Automatically injects dependencies in your services.
+  #   autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  #   public: false       # Allows optimizing the container by removing unused services; this also means
+
+  # SeoBundle\:
+  #   resource: '../../*'
+  #   exclude: '../../{DependencyInjection,Entity,Migrations,Model,Resources,Tests}'
+
+  # seo_bundle.delete.listener:
+  #   class: SeoBundle\EventListener\FileDeleteListener
+  #   tags:
+  #     - { name: doctrine.event_listener, event: preRemove }
+
+  # seo_bundle.update.listener:
+  #   class: SeoBundle\EventListener\FileUpdateListener
+  #   tags:
+  #     - { name: doctrine.event_listener, event: preUpdate }

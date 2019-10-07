@@ -1,0 +1,27 @@
+{
+  "name": "ocd/news-bundle",
+  "type": "symfony-bundle",
+  "description": "News Bundle",
+  "keywords": ["news"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Olivier CAMARD",
+      "email": "olivier.camard@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "doctrine/orm": "^2.5",
+    "tgalopin/html-sanitizer-bundle": "^1.1",
+	  "white-october/pagerfanta-bundle": "^1.2"
+  },
+  "suggest": {
+    "scheb/two-factor-bundle": "Two factor authentication bundle"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ocd\\NewsBundle\\": "src/NewsBundle"
+    }
+  }
+}

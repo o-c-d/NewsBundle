@@ -1,0 +1,6 @@
+{% trans_default_domain 'news' %}
+    <div class="section rss">
+        <a href="{{ path('news_rss', app.request.query.all) }}">
+            <i class="fa fa-rss" aria-hidden="true"></i> {{ 'menu.rss'|trans }}
+        </a>
+    </div>
