@@ -1,5 +1,0 @@
-
-admin_news:
-    resource: Ocd\UserBundle\Controller\Admin\
-    type: annotation
-
