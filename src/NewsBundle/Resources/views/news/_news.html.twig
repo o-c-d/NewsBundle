@@ -1,0 +1,22 @@
+        <article class="news">
+            <header style="background-image: url('{{ vich_uploader_asset(item, "imageFile") }}');">
+                <a href="{{ path('news_show', {slug: item.slug}) }}">
+                    {{ item.title }}
+                </a>
+            </header>
+
+            <p class="news-metadata">
+                <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
+                {% if item.author is defined %}
+                <span class="metadata"><i class="fa fa-user"></i> {{ item.author.fullName }}</span>
+                {% endif %}
+            </p>
+
+            <p>{{ item.description }}</p>
+            <p>{{ item.content }}</p>
+
+
+            {{ include('@OcdNews/news/_news_tags.html.twig') }}
+            {{ include('@OcdNews/news/_news_links.html.twig') }}
+            {{ include('@OcdNews/news/_news_files.html.twig') }}
+        </article>

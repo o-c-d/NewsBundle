@@ -1,37 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends '@OcdNews/base.html.twig' %}
 {% trans_default_domain 'news' %}
 
 {% block body_id 'news_index' %}
 
 {% block main %}
-    {% for item in latest_news %}
-        <article class="news">
-            <h2>
-                <a href="{{ path('news_show', {slug: item.slug}) }}">
-                    {{ item.title }}
-                </a>
-            </h2>
-
-            <p class="news-metadata">
-                <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
-                {% if item.author is defined %}
-                <span class="metadata"><i class="fa fa-user"></i> {{ item.author.fullName }}</span>
-                {% endif %}
-            </p>
-
-            <p>{{ item.description }}</p>
-
-            {{ include('@OcdNews/news/_news_tags.html.twig') }}
-        </article>
-    {% else %}
-        <div class="well">{{ 'news.no_news_found'|trans }}</div>
-    {% endfor %}
-
-    {% if latest_news.haveToPaginate %}
-        <div class="navigation text-center">
-            {{ pagerfanta(latest_news, 'twitter_bootstrap3_translated', {routeName: 'news_index_paginated', routeParams: app.request.query.all}) }}
-        </div>
-    {% endif %}
+    {{ include('@OcdNews/news/_latest.html.twig') }}
 {% endblock %}
 
 {% block sidebar %}

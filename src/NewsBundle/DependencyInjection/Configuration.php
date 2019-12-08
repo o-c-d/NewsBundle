@@ -17,10 +17,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root(OcdNewsExtension::CONFIG_NAME);
+        $treeBuilder = new TreeBuilder(OcdNewsExtension::CONFIG_NAME);
 
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('news_home')
                     ->addDefaultsIfNotSet()

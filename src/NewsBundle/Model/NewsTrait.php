@@ -36,7 +36,7 @@ trait NewsTrait
     protected $content;
 
     /**
-     * @ORM\Column(name="published_at", type="datetime", nullable=false)
+     * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
     protected $publishedAt;
 

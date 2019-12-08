@@ -1,7 +1,7 @@
 {% trans_default_domain 'news' %}
-{% if not item.tags.empty %}
+{% if not news.tags.empty %}
     <p class="post-tags">
-        {% for tag in item.tags %}
+        {% for tag in news.tags %}
             <a href="{{ path('news_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
                class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}"
             >

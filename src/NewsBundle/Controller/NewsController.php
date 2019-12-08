@@ -3,50 +3,67 @@
 namespace Ocd\NewsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Ocd\NewsBundle\Repository\NewsRepository;
-use Ocd\NewsBundle\Repository\NewsTagRepository;
+use Ocd\NewsBundle\Provider\NewsProvider;
+use Ocd\NewsBundle\Provider\NewsTagProvider;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Ocd\NewsBundle\Entity\News;
+use Ocd\NewsBundle\Entity\NewsTag;
 
 /**
- * News Controller
- *
- * @Route("/news")
+ * @Route({
+ *     "fr": "/ocdnewsbundle/actualites",
+ *     "en": "/ocdnewsbundle/news"
+ * }, name="/ocdnews_")
  */
 class NewsController extends AbstractController
 {
     /**
-     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="news_index")
-     * @Route("/rss.xml", defaults={"page": "1", "_format"="xml"}, methods={"GET"}, name="news_rss")
-     * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="news_index_paginated")
-     * @Cache(smaxage="10")
+     * News Provider
      *
-     * NOTE: For standard formats, Symfony will also automatically choose the best
-     * Content-Type header for the response.
-     * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
+     * @var NewsProvider
      */
-    public function index(Request $request, int $page, string $_format, NewsRepository $news, NewsTagRepository $tags): Response
-    {
-        $tag = null;
-        if ($request->query->has('tag')) {
-            $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
-        }
-        $latestNews = $news->findLatest($page, $tag);
+    protected $newsProvider;
 
-        // Every template name also has two extensions that specify the format and
-        // engine for that template.
-        // See https://symfony.com/doc/current/templating.html#template-suffix
-        return $this->render('@OcdNews/news/index.'.$_format.'.twig', ['latest_news' => $latestNews]);
+    /**
+     * NewsTag Provider
+     *
+     * @var NewsTagProvider
+     */
+    protected $newsTagProvider;
+
+    public function __construct(NewsProvider $newsProvider, NewsTagProvider $newsTagProvider)
+    {
+        $this->newsProvider = $newsProvider;
+        $this->newsTagProvider = $newsTagProvider;
     }
 
     /**
-     * @Route("/{slug}", methods={"GET"}, name="news_show")
-     *
-     * NOTE: The $news controller argument is automatically injected by Symfony
-     * after performing a database query looking for a News with the 'slug'
-     * value given in the route.
-     * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+     * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="index")
+     * @Route("/rss.xml", defaults={"page": "1", "_format"="xml"}, methods={"GET"}, name="rss")
+     * @Route("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="index_paginated")
      */
-    public function show(News $news): Response
+    public function index(Request $request, int $page, string $_format): Response
     {
+        $locale = $request->getLocale();
+        $latestNews = $this->newsProvider->getLatestNews($request, $page);
+
+        return $this->render('@OcdNews/news/index.'.$_format.'.twig', [
+            'locale' => $locale,
+            'latestNews' => $latestNews
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/{slug}",
+     *     "en": "/{slug}"
+     * }, name="show", methods={"GET"})
+     */
+    public function show(Request $request, News $news): Response
+    {
+        $locale = $request->getLocale();
         // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
         // it's not available in the 'prod' environment to prevent leaking sensitive information.
         // It can be used both in PHP files and Twig templates, but it requires to
@@ -54,7 +71,17 @@ class NewsController extends AbstractController
         //
         // dump($post, $this->getUser(), new \DateTime());
 
-        return $this->render('@OcdNews/news/show.html.twig', ['post' => $post]);
+        return $this->render('@OcdNews/news/show.html.twig', [
+            'locale' => $locale,
+            'news' => $news
+        ]);
+    }
+
+    public function renderLatest(int $page = 1, array $tags = [])
+    {
+        $latestNews = $this->newsRepository->findLatest($page, $tags);
+        return $this->render('@OcdNews/news/_latest.html.twig', ['latestNews' => $latestNews]);
+
     }
 
 }
