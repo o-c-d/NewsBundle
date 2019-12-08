@@ -13,7 +13,7 @@ trait MultilangTrait
 {
 
     /**
-     * @ORM\Column(name="lang", type="string", length=50)
+     * @ORM\Column(name="lang", type="string", length=50, nullable=true)
      */
     protected $lang;
 

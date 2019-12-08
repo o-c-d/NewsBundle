@@ -1,0 +1,39 @@
+{% extends '@OcdNews/baseAdmin.html.twig' %}
+
+
+{% block title %}Boxes Admin - {{parent()}}{% endblock %}
+
+
+{% block main %}
+
+{% if news %}
+<a href="{{path('admin_news_list')}}" class="btn btn-primary" style="float:right;">Retour liste</a>
+<a href="{{path('admin_news_edit', {id:news.id})}}" class="btn btn-secondary" style="float:right;">Editer cette news</a>
+    <div class="ficheClient container">
+        <h1>{{news.title}} ({{news.publishedAt|date('d/m/Y-H:i')}})</h1>
+        <p>{{news.description}}</p>
+        <p>{{news.content}}</p>
+    
+        <h3>Tags</h3>
+        <div class="row content">
+            <div class="col-sm">
+                <h4>Tags</h4>
+                {% if news.tags|length>0 %}
+                <ul class="fileList">
+                {% for tag in news.tags %}
+                    <li>
+                        {{tag.name}}
+                    </li>
+                {% endfor %}
+                </ul>
+                {% else %}
+                <p>Pas de Tag pour cette news pour le moment.</p>
+                {% endif %}
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+    {# {{dump(client)}} #}
+{% endif %}
+{% endblock %}

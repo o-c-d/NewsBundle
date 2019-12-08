@@ -1,0 +1,11 @@
+    {% for item in latestNews %}
+        {{ include('@OcdNews/news/_preview.html.twig') }}
+    {% else %}
+        <div class="well">{{ 'news.no_news_found'|trans }}</div>
+    {% endfor %}
+
+    {% if latestNews.haveToPaginate %}
+        <div class="navigation text-center">
+            {{ pagerfanta(latestNews, 'twitter_bootstrap3_translated', {routeName: 'news_index_paginated', routeParams: app.request.query.all}) }}
+        </div>
+    {% endif %}

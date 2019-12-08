@@ -1,10 +1,9 @@
 {% extends '@OcdNews/baseAdmin.html.twig' %}
 
-{% block title %}News Edition - {{parent()}}{% endblock %}
-
+{% block title %}News Création - {{parent()}}{% endblock %}
 
 {% block main %}
-<h2 class="page-header">Éditer une news</h2>
+<h2 class="page-header">Créer une news</h2>
 <div class="form container">
 {{form_start(form)}}
 {{form_widget(form)}}
@@ -12,7 +11,7 @@
     <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
     {# iterate over each existing tag and render its only field: name #}
         {% for tag in form.tags %}
-        <li>{{ form_widget(form.tags.vars.prototype.name)|e }}</li>
+        <li>{{ form_row(tag.name) }}</li>
         {% endfor %}
     </ul>
 <a href="{{path('admin_news_list')}}" class="btn btn-primary">Retour Liste</a>
@@ -20,4 +19,6 @@
 {{form_end(form)}}
 </div>
 {% endblock %}
+
+
 

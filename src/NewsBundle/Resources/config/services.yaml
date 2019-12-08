@@ -17,3 +17,42 @@ services:
   #   class: SeoBundle\EventListener\FileUpdateListener
   #   tags:
   #     - { name: doctrine.event_listener, event: preUpdate }
+
+    Ocd\NewsBundle\Provider\NewsProvider:
+        public: true
+        arguments: ['@Ocd\NewsBundle\Repository\NewsRepository','@Ocd\NewsBundle\Provider\NewsTagProvider']
+
+    Ocd\NewsBundle\Provider\NewsTagProvider:
+        public: true
+        arguments: ['@Ocd\NewsBundle\Repository\NewsTagRepository']
+
+    Ocd\NewsBundle\Repository\NewsRepository:
+        public: true
+        arguments: ['@doctrine']
+        tags: ['doctrine.repository_service']
+
+    Ocd\NewsBundle\Repository\NewsTagRepository:
+        public: true
+        arguments: ['@doctrine']
+        tags: ['doctrine.repository_service']
+
+    Ocd\NewsBundle\Controller\NewsController:
+        public: true
+        tags: ['controller.service_arguments']
+        arguments: ['@Ocd\NewsBundle\Provider\NewsProvider','@Ocd\NewsBundle\Provider\NewsTagProvider']
+ 
+    Ocd\NewsBundle\Controller\Admin\AdminNewsController:
+        public: true
+        arguments: ['@doctrine.orm.default_entity_manager', '@knp_paginator', '@session']
+        tags: ['controller.service_arguments']
+
+
+
+
+
+
+
+
+
+
+

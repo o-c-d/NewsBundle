@@ -1,0 +1,15 @@
+        <article class="news preview">
+            <header style="background-image: url('{{ vich_uploader_asset(item, 'imageFile') }}');">
+                <h1 class="title">
+                    <a href="{{ path('news_show', {slug: item.slug}) }}">
+                        {{ item.title }}
+                    </a>
+                </h1>
+                <p class="news-metadata">
+                    <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
+                    {% if item.author is defined %}
+                    <span class="metadata"><i class="fa fa-user"></i> {{ item.author.fullName }}</span>
+                    {% endif %}
+                </p>
+            </header>
+        </article>

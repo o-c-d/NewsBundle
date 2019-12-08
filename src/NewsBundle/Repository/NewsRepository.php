@@ -9,6 +9,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Doctrine\ORM\Query;
 
 /**
  * @method News|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,7 +24,7 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
-    public function findLatest(int $page = 1, NewsTag $tag = null): Pagerfanta
+    public function findLatest(int $page = 1, array $tags = []): Pagerfanta
     {
         $qb = $this->createQueryBuilder('news')
             ->addSelect('tags')
@@ -32,9 +33,14 @@ class NewsRepository extends ServiceEntityRepository
             ->orderBy('news.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
 
-        if (null !== $tag) {
-            $qb->andWhere(':tag MEMBER OF news.tags')
-                ->setParameter('tag', $tag);
+        if (false === empty($tags)) {
+            foreach ($tags as $tag) {
+                if($tag instanceof NewsTag)
+                {
+                $qb->andWhere(':tag MEMBER OF news.tags')
+                    ->setParameter('tag', $tag);
+                }
+            }
         }
 
         return $this->createPaginator($qb->getQuery(), $page);

@@ -3,7 +3,7 @@
 namespace Ocd\NewsBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Ocd\NewsBundle\Entity\NewsTag;
 
 /**
  * News Trait
@@ -20,16 +20,18 @@ trait NewsTaggableTrait
      */
     private $tags;
     
-    public function addTag(Tag $tag)
+    public function addTag(NewsTag $tag)
     {
         $tag->addArticle($this); // synchronously updating inverse side
         $this->tags[] = $tag;
+        return $this;
     }
 
-    public function removeTag(Tag $tag)
+    public function removeTag(NewsTag $tag)
     {
         $this->tags->removeElement($tag);
         $tag->removeArticle($this); // synchronously updating inverse side
+        return $this;
     }
 
     /**
