@@ -3,6 +3,7 @@
 namespace Ocd\NewsBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ocd\NewsBundle\Entity\News;
 
 
 /**
@@ -43,12 +44,12 @@ trait NewsTagTrait
         return $this->name;
     }
 
-    public function addArticle(Article $article)
+    public function addArticle(News $article)
     {
         $this->articles[] = $article;
     }
 
-    public function removeArticle(Article $article)
+    public function removeArticle(News $article)
     {
         $this->articles->removeElement($article);
     }
