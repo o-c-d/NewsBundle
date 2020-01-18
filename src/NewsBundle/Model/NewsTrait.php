@@ -4,6 +4,8 @@ namespace Ocd\NewsBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ocd\NewsBundle\Helper\StringSanitizer;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * News Trait
@@ -21,7 +23,7 @@ trait NewsTrait
     protected $title;
 
     /**
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     protected $slug;
 
@@ -34,6 +36,18 @@ trait NewsTrait
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     protected $content;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $background;
+
+    /**
+     * @Vich\UploadableField(mapping="news_backgrounds", fileNameProperty="background")
+     * @var File
+     */
+    private $backgroundFile;
 
     /**
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
@@ -118,6 +132,34 @@ trait NewsTrait
         $this->content = $content;
 
         return $this;
+    }
+
+    public function setBackgroundFile(File $background = null)
+    {
+        $this->backgroundFile = $background;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($background) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getBackgroundFile()
+    {
+        return $this->backgroundFile;
+    }
+
+    public function setBackground($background)
+    {
+        $this->background = $background;
+    }
+
+    public function getBackground()
+    {
+        return $this->background;
     }
 
     /**
