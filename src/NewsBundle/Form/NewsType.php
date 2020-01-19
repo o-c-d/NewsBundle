@@ -74,7 +74,7 @@ class NewsType extends AbstractType
                 'format' => 'yyyy-MM-dd HH:mm',
             ));
         }
-        $builder->add('imageFile', VichImageType::class, [
+        $builder->add('backgroundFile', VichImageType::class, [
             'required' => false,
             'allow_delete' => true,
             'download_label' => 'download_file',

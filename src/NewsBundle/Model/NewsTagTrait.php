@@ -3,32 +3,25 @@
 namespace Ocd\NewsBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ocd\NewsBundle\Entity\News;
-
 
 /**
- * News Trait
+ * NewsTag Trait
  *
  */
 trait NewsTagTrait
 {
-    use MultilangTrait;
-    use TimestampableTrait;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
      */
     protected $name;
 
-    /**
-     * News articles
-     * Many Tags have Many News.
-     * @ORM\ManyToMany(targetEntity="News", mappedBy="tags")
-     */
-    protected $articles;
-
-    public function getName(): ?string
+    public function getName(): string
     {
+        if(null===$this->name)
+        {
+            return '';
+        }
         return $this->name;
     }
 
@@ -38,40 +31,4 @@ trait NewsTagTrait
 
         return $this;
     }
-
-    public function __tostring(): string
-    {
-        return $this->name;
-    }
-
-    public function addArticle(News $article)
-    {
-        $this->articles[] = $article;
-    }
-
-    public function removeArticle(News $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get news articles
-     */ 
-    public function getArticles()
-    {
-        return $this->articles;
-    }
-
-    /**
-     * Set news articles
-     *
-     * @return  self
-     */ 
-    public function setArticles($articles)
-    {
-        $this->articles = $articles;
-
-        return $this;
-    }
-
 }

@@ -5,8 +5,13 @@ namespace Ocd\NewsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Ocd\NewsBundle\Model\NewsTrait;
 use Ocd\NewsBundle\Model\MultilangTrait;
-use Ocd\NewsBundle\Model\TimestampableTrait;
 use Ocd\NewsBundle\Model\NewsTaggableTrait;
+use Ocd\NewsBundle\Model\NewsLinkableTrait;
+use Ocd\NewsBundle\Model\NewsAttachableTrait;
+use Ocd\UserBundle\Model\TimestampableInterface;
+use Ocd\UserBundle\Model\TimestampableTrait;
+use Ocd\UserBundle\Model\BlameableInterface;
+use Ocd\UserBundle\Model\BlameableTrait;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -15,10 +20,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="Ocd\NewsBundle\Repository\NewsRepository")
  * @Vich\Uploadable
  */
-class News
+class News implements TimestampableInterface, BlameableInterface
 {
     const NUM_ITEMS = 10 ;
     use NewsTrait;
+    use MultilangTrait;
+    use TimestampableTrait;
+    use NewsTaggableTrait;
+    use NewsLinkableTrait;
+    use NewsAttachableTrait;
+    use BlameableTrait;
     
     /**
      * @ORM\Id()

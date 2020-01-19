@@ -13,9 +13,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 trait NewsTrait
 {
-    use MultilangTrait;
-    use TimestampableTrait;
-    use NewsTaggableTrait;
     
     /**
      * @ORM\Column(name="title", type="string", length=255)
@@ -191,6 +188,7 @@ trait NewsTrait
     {
         if(is_null($this->slug))
         {
+            // TODO: Gestion des doublons
             $this->setSlug(StringSanitizer::slugify($this->getTitle()));
         }
     }

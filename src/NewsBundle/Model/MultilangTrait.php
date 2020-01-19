@@ -13,12 +13,16 @@ trait MultilangTrait
 {
 
     /**
-     * @ORM\Column(name="lang", type="string", length=50, nullable=true)
+     * @ORM\Column(name="lang", type="string", length=50, nullable=false, options={"default"="fr"})
      */
     protected $lang;
 
     public function getLang(): ?string
     {
+        // if(null===$this->lang)
+        // {
+        //     return 'fr';
+        // }
         return $this->lang;
     }
 

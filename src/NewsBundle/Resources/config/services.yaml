@@ -36,6 +36,16 @@ services:
         arguments: ['@doctrine']
         tags: ['doctrine.repository_service']
 
+    Ocd\NewsBundle\Repository\NewsLinkRepository:
+        public: true
+        arguments: ['@doctrine']
+        tags: ['doctrine.repository_service']
+
+    Ocd\NewsBundle\Repository\NewsAttachmentRepository:
+        public: true
+        arguments: ['@doctrine']
+        tags: ['doctrine.repository_service']
+
     Ocd\NewsBundle\Controller\NewsController:
         public: true
         tags: ['controller.service_arguments']
@@ -46,6 +56,10 @@ services:
         arguments: ['@doctrine.orm.default_entity_manager', '@knp_paginator', '@session']
         tags: ['controller.service_arguments']
 
+
+    ocd_news.directory_namer:
+        class: Ocd\NewsBundle\Services\NewsDirectoryNamer
+        public: true
 
 
 

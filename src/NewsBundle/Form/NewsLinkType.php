@@ -2,14 +2,14 @@
 
 namespace Ocd\NewsBundle\Form;
 
-use Ocd\NewsBundle\Entity\NewsTag;
+use Ocd\NewsBundle\Entity\NewsLink;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class NewsTagType extends AbstractType
+class NewsLinkType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,13 +21,15 @@ class NewsTagType extends AbstractType
             'preferred_choices' => ['fr'],
             'attr' => array('class' => 'dropdown')
         ));
-        $builder->add('name', TextType::class);
+        $builder->add('text', TextType::class);
+        $builder->add('uri', TextType::class);
+        $builder->add('title', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => NewsTag::class,
+            'data_class' => NewsLink::class,
         ]);
     }
 }

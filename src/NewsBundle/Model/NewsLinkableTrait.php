@@ -3,53 +3,53 @@
 namespace Ocd\NewsBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ocd\NewsBundle\Entity\NewsTag;
+use Ocd\NewsBundle\Entity\NewsLink;
 
 /**
- * NewsTaggable Trait
+ * NewsLinkable Trait
  *
  */
-trait NewsTaggableTrait
+trait NewsLinkableTrait
 {
 
     /**
-     * News tags
-     * Many News have Many Tags.
-     * @ORM\ManyToMany(targetEntity="NewsTag", inversedBy="articles")
-     * @ORM\JoinTable(name="news_tags")
+     * News links
+     * Many News have Many Links.
+     * @ORM\ManyToMany(targetEntity="NewsLink", inversedBy="news", cascade={"persist"})
+     * @ORM\JoinTable(name="news__links")
      */
-    private $tags;
+    private $links;
     
-    public function addTag(NewsTag $tag)
+    public function addLink(NewsLink $link)
     {
-        $tag->addArticle($this); // synchronously updating inverse side
-        $this->tags[] = $tag;
+        $link->addNews($this); // synchronously updating inverse side
+        $this->links[] = $link;
         return $this;
     }
 
-    public function removeTag(NewsTag $tag)
+    public function removeLink(NewsLink $link)
     {
-        $this->tags->removeElement($tag);
-        $tag->removeArticle($this); // synchronously updating inverse side
+        $this->links->removeElement($link);
+        $link->removeNews($this); // synchronously updating inverse side
         return $this;
     }
 
     /**
-     * Get News tags.
+     * Get News links.
      */ 
-    public function getTags()
+    public function getLinks()
     {
-        return $this->tags;
+        return $this->links;
     }
 
     /**
-     * Set News tags.
+     * Set News links.
      *
      * @return  self
      */ 
-    public function setTags($tags)
+    public function setLinks($links) 
     {
-        $this->tags = $tags;
+        $this->links = $links;
 
         return $this;
     }

@@ -5,7 +5,7 @@ namespace Ocd\NewsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ocd\NewsBundle\Entity\News;
-use Ocd\NewsBundle\Model\NewsTagTrait;
+use Ocd\NewsBundle\Model\NewsLinkTrait;
 use Ocd\NewsBundle\Model\MultilangTrait;
 use Ocd\UserBundle\Model\TimestampableInterface;
 use Ocd\UserBundle\Model\TimestampableTrait;
@@ -13,16 +13,16 @@ use Ocd\UserBundle\Model\BlameableInterface;
 use Ocd\UserBundle\Model\BlameableTrait;
 
 /**
- * @ORM\Table(name="news_tag")
- * @ORM\Entity(repositoryClass="Ocd\NewsBundle\Repository\NewsTagRepository")
+ * @ORM\Table(name="news_link")
+ * @ORM\Entity(repositoryClass="Ocd\NewsBundle\Repository\NewsLinkRepository")
  */
-class NewsTag implements TimestampableInterface, BlameableInterface
+class NewsLink implements TimestampableInterface, BlameableInterface
 {
-    use NewsTagTrait;
+    use NewsLinkTrait;
     use MultilangTrait;
     use TimestampableTrait;
     use BlameableTrait;
-
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,9 +31,9 @@ class NewsTag implements TimestampableInterface, BlameableInterface
     private $id;
 
     /**
-     * News 
+     * News
      * Many Tags have Many News.
-     * @ORM\ManyToMany(targetEntity="News", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="News", mappedBy="links")
      */
     protected $news;
 
@@ -73,9 +73,8 @@ class NewsTag implements TimestampableInterface, BlameableInterface
     }
 
 
-
     public function __tostring(): string
     {
-        return $this->name;
+        return $this->uri;
     }
 }

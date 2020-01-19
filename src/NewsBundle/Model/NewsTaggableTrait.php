@@ -15,14 +15,14 @@ trait NewsTaggableTrait
     /**
      * News tags
      * Many News have Many Tags.
-     * @ORM\ManyToMany(targetEntity="NewsTag", inversedBy="articles")
-     * @ORM\JoinTable(name="news_tags")
+     * @ORM\ManyToMany(targetEntity="NewsTag", inversedBy="news", cascade={"persist"})
+     * @ORM\JoinTable(name="news__tags")
      */
     private $tags;
     
     public function addTag(NewsTag $tag)
     {
-        $tag->addArticle($this); // synchronously updating inverse side
+        $tag->addNews($this); // synchronously updating inverse side
         $this->tags[] = $tag;
         return $this;
     }
@@ -30,7 +30,7 @@ trait NewsTaggableTrait
     public function removeTag(NewsTag $tag)
     {
         $this->tags->removeElement($tag);
-        $tag->removeArticle($this); // synchronously updating inverse side
+        $tag->removeNews($this); // synchronously updating inverse side
         return $this;
     }
 
