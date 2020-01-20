@@ -1,9 +1,10 @@
 {% extends '@OcdNews/base.html.twig' %}
-{% trans_default_domain 'news' %}
+{% trans_default_domain 'ocdnews' %}
 
 {% block body_id 'news_show' %}
 
 {% block main %}
+{{parent()}}
     <h1>{{ news.title }}</h1>
 
     <p class="post-metadata">

@@ -47,7 +47,7 @@ class NewsType extends AbstractType
             ),
             'widget' => 'single_text',
             'html5' => false,
-            'format' => 'yyyy-MM-dd HH:mm',
+            'format' => 'dd-MM-yyyy HH:mm',
             'required' => false,
         ));
         if(in_array('ROLE_SUPER_ADMIN', $options['roles'])) {
@@ -60,7 +60,7 @@ class NewsType extends AbstractType
                 ),
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'yyyy-MM-dd HH:mm',
+            'format' => 'dd-MM-yyyy HH:mm',
             ));
             $builder->add('createdAt', DateTimeType::class, array(
                 'attr' => array(
@@ -71,7 +71,7 @@ class NewsType extends AbstractType
                 ),
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'yyyy-MM-dd HH:mm',
+            'format' => 'dd-MM-yyyy HH:mm',
             ));
         }
         $builder->add('backgroundFile', VichImageType::class, [

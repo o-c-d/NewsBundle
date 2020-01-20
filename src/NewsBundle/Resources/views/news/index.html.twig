@@ -1,11 +1,19 @@
 {% extends '@OcdNews/base.html.twig' %}
-{% trans_default_domain 'news' %}
+{% trans_default_domain 'ocdnews' %}
 
 {% block body_id 'news_index' %}
 
-{% block main %}
+    {% block main %}
+    <main id="privacy">
+        <div class="row page-header">
+            <div class="col-12">
+                <h1>{{ 'ocdnews.page.index.title.site'|trans }}</h1>
+                <h2><span class="crown">{{ 'ocdnews.page.index.title.section'|trans }}</span></h2>
+            </div>
+        </div>
     {{ include('@OcdNews/news/_latest.html.twig') }}
-{% endblock %}
+    </main>
+    {% endblock %}
 
 {% block sidebar %}
     {{ parent() }}

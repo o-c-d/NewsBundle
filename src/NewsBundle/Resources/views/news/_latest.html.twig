@@ -1,7 +1,9 @@
     {% for item in latestNews %}
         {{ include('@OcdNews/news/_preview.html.twig') }}
     {% else %}
-        <div class="well">{{ 'news.no_news_found'|trans }}</div>
+        <div class="well">
+            <p>{{ 'ocdnews.no_news_found'|trans }}</p>
+        </div>
     {% endfor %}
 
     {% if latestNews.haveToPaginate %}
