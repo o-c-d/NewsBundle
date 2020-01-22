@@ -40,7 +40,7 @@ class NewsAttachment implements TimestampableInterface, BlameableInterface
      */
     protected $news;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

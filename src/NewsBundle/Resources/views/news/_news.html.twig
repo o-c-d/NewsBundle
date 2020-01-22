@@ -1,22 +1,30 @@
         <article class="news">
-            <header style="background-image: url('{{ vich_uploader_asset(item, "imageFile") }}');">
-                <a href="{{ path('news_show', {slug: item.slug}) }}">
-                    {{ item.title }}
-                </a>
-            </header>
-
-            <p class="news-metadata">
-                <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
-                {% if item.author is defined %}
-                <span class="metadata"><i class="fa fa-user"></i> {{ item.author.fullName }}</span>
+            <header style="background-image: url('{{ vich_uploader_asset(item, "backgroundFile") }}');">
+                <h1 class="title">
+                    <a href="{{ path('ocdnews_show', {slug: item.slug}) }}">
+                        {{ item.title }}
+                    </a>
+                </h1>
+                <p class="news-metadata">
+                    <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
+                {% if item.updatedBy is defined %}
+                    <span class="metadata"><i class="fa fa-user"></i> {{ item.updatedBy.username }}</span>
                 {% endif %}
-            </p>
-
+                </p>
+            </header>
+        {% if item.description %}
             <p>{{ item.description }}</p>
+        {% endif %}
+
             <p>{{ item.content }}</p>
 
-
+        {% if item.tags %}
             {{ include('@OcdNews/news/_news_tags.html.twig') }}
+        {% endif %}
+        {% if item.links %}
             {{ include('@OcdNews/news/_news_links.html.twig') }}
+        {% endif %}
+        {% if item.attachments %}
             {{ include('@OcdNews/news/_news_files.html.twig') }}
+        {% endif %}
         </article>

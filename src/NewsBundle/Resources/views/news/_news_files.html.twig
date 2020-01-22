@@ -1,1 +1,8 @@
 {% trans_default_domain 'news' %}
+{% if not news.attachments.empty %}
+<p class="post-tags">
+    {% for attachment in news.attachments %}
+    {{ vich_uploader_asset(attachment, 'attachmentFile') }}
+    {% endfor %}
+</p>
+{% endif %}

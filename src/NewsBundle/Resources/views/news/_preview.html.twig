@@ -1,14 +1,17 @@
         <article class="news preview">
-            <header style="background-image: url('{{ vich_uploader_asset(item, 'imageFile') }}');">
+            <header style="background-image: url('{{ vich_uploader_asset(item, 'backgroundFile') }}');">
                 <h1 class="title">
-                    <a href="{{ path('news_show', {slug: item.slug}) }}">
+                    <a href="{{ path('ocdnews_show.'~locale, {slug: item.slug}) }}">
                         {{ item.title }}
                     </a>
                 </h1>
+            {% if item.description %}
+                <p>{{ item.description }}</p>
+            {% endif %}
                 <p class="news-metadata">
                     <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
-                    {% if item.author is defined %}
-                    <span class="metadata"><i class="fa fa-user"></i> {{ item.author.fullName }}</span>
+                    {% if item.updatedBy is defined %}
+                    <span class="metadata"><i class="fa fa-user"></i> {{ item.updatedBy.username }}</span>
                     {% endif %}
                 </p>
             </header>

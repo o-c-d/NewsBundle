@@ -2,7 +2,7 @@
 {% if not news.tags.empty %}
     <p class="post-tags">
         {% for tag in news.tags %}
-            <a href="{{ path('news_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
+            <a href="{{ path('ocdnews_index.'~locale, {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
                class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}"
             >
                 <i class="fa fa-tag"></i> {{ tag.name }}

@@ -15,7 +15,7 @@ use Ocd\NewsBundle\Entity\NewsTag;
  * @Route({
  *     "fr": "/ocdnewsbundle/actualites",
  *     "en": "/ocdnewsbundle/news"
- * }, name="/ocdnews_")
+ * }, name="ocdnews_")
  */
 class NewsController extends AbstractController
 {

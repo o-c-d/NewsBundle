@@ -1,1 +1,14 @@
 {% trans_default_domain 'news' %}
+{% if not news.links.empty %}
+<p class="post-tags">
+    <ul>
+    {% for link in news.links %}
+        <li>
+            <a href="{{ link.uri }}" class="link" title="{{ link.title }}">
+                {{ link.text }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+</p>
+{% endif %}

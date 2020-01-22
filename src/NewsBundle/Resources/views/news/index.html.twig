@@ -1,10 +1,15 @@
 {% extends '@OcdNews/base.html.twig' %}
 {% trans_default_domain 'ocdnews' %}
 
+{% block stylesheets %}
+{{parent()}}
+{{ encore_entry_link_tags('css/ocdnewsbundle') }}
+{% endblock %}
+
 {% block body_id 'news_index' %}
 
     {% block main %}
-    <main id="privacy">
+    <main id="news">
         <div class="row page-header">
             <div class="col-12">
                 <h1>{{ 'ocdnews.page.index.title.site'|trans }}</h1>
