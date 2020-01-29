@@ -13,8 +13,8 @@ use Ocd\NewsBundle\Entity\NewsTag;
 
 /**
  * @Route({
- *     "fr": "/ocdnewsbundle/actualites",
- *     "en": "/ocdnewsbundle/news"
+ *     "fr": "/actualites",
+ *     "en": "/news"
  * }, name="ocdnews_")
  */
 class NewsController extends AbstractController
@@ -47,10 +47,14 @@ class NewsController extends AbstractController
     public function index(Request $request, int $page, string $_format): Response
     {
         $locale = $request->getLocale();
-        $latestNews = $this->newsProvider->getLatestNews($request, $page);
+        $limitPerPage = 10;
+        $itemPerLine = 2;
+        $latestNews = $this->newsProvider->getLatestNews($request, $limitPerPage, $page);
 
         return $this->render('@OcdNews/news/index.'.$_format.'.twig', [
             'locale' => $locale,
+            'limitPerPage' => $limitPerPage,
+            'item_per_line' => $itemPerLine,
             'latestNews' => $latestNews
         ]);
     }
@@ -79,7 +83,8 @@ class NewsController extends AbstractController
 
     public function renderLatest(int $page = 1, array $tags = [])
     {
-        $latestNews = $this->newsRepository->findLatest($page, $tags);
+        $limitPerPage = 10;
+        $latestNews = $this->newsRepository->findLatest($limitPerPage, $page, $tags);
         return $this->render('@OcdNews/news/_latest.html.twig', ['latestNews' => $latestNews]);
 
     }

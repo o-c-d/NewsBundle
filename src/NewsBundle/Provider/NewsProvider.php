@@ -15,10 +15,10 @@ class NewsProvider
         $this->newsTagProvider = $newsTagProvider;
     }
     
-    public function getLatestNews(Request $request, int $page)
+    public function getLatestNews(Request $request, int $limitPerPage, int $page)
     {
         $tags = $this->newsTagProvider->getTagsFromRequest($request);
-        return $this->newsRepository->findLatest($page, $tags);
+        return $this->newsRepository->findLatest($limitPerPage, $page, $tags);
 
     }
 }

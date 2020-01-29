@@ -12,19 +12,32 @@
                 {% endif %}
                 </p>
             </header>
-        {% if item.description %}
-            <p>{{ item.description }}</p>
-        {% endif %}
+            <section>
+            {% if item.description %}
+                <p>{{ item.description }}</p>
+            {% endif %}
 
-            <p>{{ item.content }}</p>
+                {{ item.content|raw }}
 
-        {% if item.tags %}
-            {{ include('@OcdNews/news/_news_tags.html.twig') }}
-        {% endif %}
-        {% if item.links %}
-            {{ include('@OcdNews/news/_news_links.html.twig') }}
-        {% endif %}
-        {% if item.attachments %}
-            {{ include('@OcdNews/news/_news_files.html.twig') }}
-        {% endif %}
+            <div class="row">
+            {% if item.tags %}
+            <div class="col-md-4">
+                <h2>Tags</h2>
+                {{ include('@OcdNews/news/_news_tags.html.twig') }}
+            </div>
+            {% endif %}
+            {% if item.links %}
+            <div class="col-md-4">
+                <h2>Liens</h2>
+                {{ include('@OcdNews/news/_news_links.html.twig') }}
+            </div>
+            {% endif %}
+            {% if item.attachments %}
+            <div class="col-md-4">
+                <h2>Pièces jointes</h2>
+                {{ include('@OcdNews/news/_news_files.html.twig') }}
+            </div>
+            {% endif %}
+            </div>
+            </section>
         </article>

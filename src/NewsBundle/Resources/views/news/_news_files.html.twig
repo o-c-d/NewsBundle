@@ -1,8 +1,14 @@
 {% trans_default_domain 'news' %}
 {% if not news.attachments.empty %}
 <p class="post-tags">
+    <ul>
     {% for attachment in news.attachments %}
-    {{ vich_uploader_asset(attachment, 'attachmentFile') }}
+    <li>
+        <a href="{{ vich_uploader_asset(attachment, 'attachmentFile') }}" title="{{attachment.name}}" target="_blank">
+            {{ vich_uploader_asset(attachment, 'attachmentFile') }}
+        </a>
+    </li>
     {% endfor %}
+    </ul>
 </p>
 {% endif %}

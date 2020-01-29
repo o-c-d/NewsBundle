@@ -3,7 +3,4 @@ news:
     resource: Ocd\NewsBundle\Controller\NewsController
     type: annotation
 
-admin_news:
-    resource: Ocd\NewsBundle\Controller\Admin\AdminNewsController
-    type: annotation
 

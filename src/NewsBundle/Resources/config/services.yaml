@@ -51,12 +51,6 @@ services:
         tags: ['controller.service_arguments']
         arguments: ['@Ocd\NewsBundle\Provider\NewsProvider','@Ocd\NewsBundle\Provider\NewsTagProvider']
  
-    Ocd\NewsBundle\Controller\Admin\AdminNewsController:
-        public: true
-        arguments: ['@doctrine.orm.default_entity_manager', '@knp_paginator', '@session']
-        tags: ['controller.service_arguments']
-
-
     ocd_news.directory_namer:
         class: Ocd\NewsBundle\Services\NewsDirectoryNamer
         public: true

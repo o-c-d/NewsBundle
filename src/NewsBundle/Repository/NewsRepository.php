@@ -24,7 +24,7 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
-    public function findLatest(int $page = 1, array $tags = []): Pagerfanta
+    public function findLatest(int $limitPerPage=News::NUM_ITEMS, int $page = 1, array $tags = []): Pagerfanta
     {
         $qb = $this->createQueryBuilder('news')
             ->addSelect('tags')
@@ -43,13 +43,13 @@ class NewsRepository extends ServiceEntityRepository
             }
         }
 
-        return $this->createPaginator($qb->getQuery(), $page);
+        return $this->createPaginator($qb->getQuery(), $limitPerPage, $page);
     }
 
-    private function createPaginator(Query $query, int $page): Pagerfanta
+    private function createPaginator(Query $query, int $limitPerPage, int $page): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage(News::NUM_ITEMS);
+        $paginator->setMaxPerPage($limitPerPage);
         $paginator->setCurrentPage($page);
 
         return $paginator;

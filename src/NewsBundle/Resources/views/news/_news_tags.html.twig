@@ -1,13 +1,17 @@
 {% trans_default_domain 'news' %}
 {% if not news.tags.empty %}
     <p class="post-tags">
+        <ul>
         {% for tag in news.tags %}
+        <li>
             <a href="{{ path('ocdnews_index.'~locale, {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
                class="label label-{{ tag.name == app.request.query.get('tag') ? 'success' : 'default' }}"
             >
                 <i class="fa fa-tag"></i> {{ tag.name }}
             </a>
+        </li>
         {% endfor %}
+        </ul>
     </p>
 {% endif %}
 

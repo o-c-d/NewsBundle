@@ -8,6 +8,9 @@
             {% if item.description %}
                 <p>{{ item.description }}</p>
             {% endif %}
+            {% if preview_hass_content is defined %}
+                {{ item.content|raw }}
+            {% endif %}
                 <p class="news-metadata">
                     <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
                     {% if item.updatedBy is defined %}
