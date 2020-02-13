@@ -54,6 +54,7 @@ services:
     ocd_news.directory_namer:
         class: Ocd\NewsBundle\Services\NewsDirectoryNamer
         public: true
+        arguments: ['@doctrine.orm.entity_manager']
 
 
 
