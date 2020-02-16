@@ -5,7 +5,7 @@
     {% for attachment in news.attachments %}
     <li>
         <a href="{{ vich_uploader_asset(attachment, 'attachmentFile') }}" title="{{attachment.name}}" target="_blank">
-            {{ vich_uploader_asset(attachment, 'attachmentFile') }}
+            {{attachment.name}}
         </a>
     </li>
     {% endfor %}
