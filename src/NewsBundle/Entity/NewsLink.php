@@ -33,7 +33,7 @@ class NewsLink implements TimestampableInterface, BlameableInterface
     /**
      * News
      * Many Tags have Many News.
-     * @ORM\ManyToMany(targetEntity="News", mappedBy="links")
+     * @ORM\ManyToOne(targetEntity="News", inversedBy="links")
      */
     protected $news;
 
