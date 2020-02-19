@@ -34,6 +34,7 @@ class NewsLink implements TimestampableInterface, BlameableInterface
      * News
      * Many Tags have Many News.
      * @ORM\ManyToOne(targetEntity="News", inversedBy="links")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
      */
     protected $news;
 

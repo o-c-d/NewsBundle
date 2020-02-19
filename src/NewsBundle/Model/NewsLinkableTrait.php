@@ -15,7 +15,7 @@ trait NewsLinkableTrait
     /**
      * News links
      * Many News have Many Links.
-     * @ORM\OneToMany(targetEntity="NewsLink", mappedBy="news", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="NewsLink", mappedBy="news", cascade={"all"}, orphanRemoval=true)
      */
     private $links;
     

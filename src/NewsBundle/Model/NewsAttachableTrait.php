@@ -15,7 +15,7 @@ trait NewsAttachableTrait
     /**
      * News attachments
      * Many News have Many Attachments.
-     * @ORM\OneToMany(targetEntity="NewsAttachment", mappedBy="news", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="NewsAttachment", mappedBy="news", cascade={"all"}, orphanRemoval=true)
      */
     private $attachments;
     

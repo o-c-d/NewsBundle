@@ -37,6 +37,7 @@ class NewsAttachment implements TimestampableInterface, BlameableInterface
      * News
      * Many files have Many News.
      * @ORM\ManyToOne(targetEntity="News", inversedBy="attachments")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
      */
     protected $news;
 
