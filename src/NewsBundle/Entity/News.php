@@ -2,6 +2,7 @@
 
 namespace Ocd\NewsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Ocd\NewsBundle\Model\NewsTrait;
 use Ocd\NewsBundle\Model\MultilangTrait;
@@ -37,6 +38,12 @@ class News implements TimestampableInterface, BlameableInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    public function __construct() {
+        $this->tags = new ArrayCollection();
+        $this->links = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

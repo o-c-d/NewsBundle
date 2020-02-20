@@ -2,6 +2,7 @@
 
 namespace Ocd\NewsBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ocd\NewsBundle\Entity\NewsLink;
 
@@ -21,7 +22,7 @@ trait NewsLinkableTrait
     
     public function addLink(NewsLink $link)
     {
-        $link->addNews($this); // synchronously updating inverse side
+        $link->setNews($this); // synchronously updating inverse side
         $this->links[] = $link;
         return $this;
     }
@@ -29,14 +30,14 @@ trait NewsLinkableTrait
     public function removeLink(NewsLink $link)
     {
         $this->links->removeElement($link);
-        $link->removeNews($this); // synchronously updating inverse side
+        $link->setNews(null); // synchronously updating inverse side
         return $this;
     }
 
     /**
      * Get News links.
      */ 
-    public function getLinks()
+    public function getLinks():Collection
     {
         return $this->links;
     }
@@ -46,7 +47,7 @@ trait NewsLinkableTrait
      *
      * @return  self
      */ 
-    public function setLinks($links) 
+    public function setLinks(Collection $links) :self
     {
         $this->links = $links;
 

@@ -2,6 +2,7 @@
 
 namespace Ocd\NewsBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ocd\NewsBundle\Entity\NewsAttachment;
 
@@ -21,7 +22,7 @@ trait NewsAttachableTrait
     
     public function addAttachment(NewsAttachment $attachment):self
     {
-        $attachment->addNews($this); // synchronously updating inverse side
+        $attachment->setNews($this); // synchronously updating inverse side
         $this->attachments[] = $attachment;
         return $this;
     }
@@ -29,14 +30,14 @@ trait NewsAttachableTrait
     public function removeAttachment(NewsAttachment $attachment):self
     {
         $this->attachments->removeElement($attachment);
-        $attachment->removeNews($this); // synchronously updating inverse side
+        $attachment->setNews(null); // synchronously updating inverse side
         return $this;
     }
 
     /**
      * Get News attachments.
      */ 
-    public function getAttachments()
+    public function getAttachments():Collection
     {
         return $this->attachments;
     }
@@ -46,7 +47,7 @@ trait NewsAttachableTrait
      *
      * @return  self
      */ 
-    public function setAttachments($attachments):self
+    public function setAttachments(Collection $attachments):self
     {
         $this->attachments = $attachments;
 

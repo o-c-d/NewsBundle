@@ -3,7 +3,7 @@
 namespace Ocd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ocd\NewsBundle\Entity\News;
 use Ocd\NewsBundle\Model\NewsLinkTrait;
 use Ocd\NewsBundle\Model\MultilangTrait;
@@ -34,7 +34,7 @@ class NewsLink implements TimestampableInterface, BlameableInterface
      * News
      * Many Tags have Many News.
      * @ORM\ManyToOne(targetEntity="News", inversedBy="links")
-     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id", nullable=false)
      */
     protected $news;
 
@@ -43,20 +43,10 @@ class NewsLink implements TimestampableInterface, BlameableInterface
         return $this->id;
     }
 
-    public function addNews(News $news)
-    {
-        $this->news[] = $news;
-    }
-
-    public function removeNews(News $news)
-    {
-        $this->news->removeElement($news);
-    }
-
     /**
      * Get news
      */ 
-    public function getNews():ArrayCollection
+    public function getNews():News
     {
         return $this->news;
     }
@@ -66,7 +56,7 @@ class NewsLink implements TimestampableInterface, BlameableInterface
      *
      * @return  self
      */ 
-    public function setNews(ArrayCollection $news)
+    public function setNews(News $news)
     {
         $this->news = $news;
 

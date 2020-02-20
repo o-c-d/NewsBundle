@@ -3,7 +3,7 @@
 namespace Ocd\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ocd\NewsBundle\Entity\News;
 use Ocd\NewsBundle\Model\NewsAttachmentTrait;
 use Ocd\NewsBundle\Model\MultilangTrait;
@@ -37,7 +37,7 @@ class NewsAttachment implements TimestampableInterface, BlameableInterface
      * News
      * Many files have Many News.
      * @ORM\ManyToOne(targetEntity="News", inversedBy="attachments")
-     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id", nullable=false)
      */
     protected $news;
 
@@ -46,20 +46,10 @@ class NewsAttachment implements TimestampableInterface, BlameableInterface
         return $this->id;
     }
 
-    public function addNews(News $news)
-    {
-        $this->news[] = $news;
-    }
-
-    public function removeNews(News $news)
-    {
-        $this->news->removeElement($news);
-    }
-
     /**
      * Get news
      */ 
-    public function getNews():ArrayCollection
+    public function getNews():News
     {
         return $this->news;
     }
@@ -69,7 +59,7 @@ class NewsAttachment implements TimestampableInterface, BlameableInterface
      *
      * @return  self
      */ 
-    public function setNews(ArrayCollection $news)
+    public function setNews(News $news)
     {
         $this->news = $news;
 

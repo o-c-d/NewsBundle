@@ -55,7 +55,7 @@ class NewsTag implements TimestampableInterface, BlameableInterface
     /**
      * Get news
      */ 
-    public function getNews():ArrayCollection
+    public function getNews()
     {
         return $this->news;
     }
@@ -65,7 +65,7 @@ class NewsTag implements TimestampableInterface, BlameableInterface
      *
      * @return  self
      */ 
-    public function setNews(ArrayCollection $news)
+    public function setNews($news)
     {
         $this->news = $news;
 
