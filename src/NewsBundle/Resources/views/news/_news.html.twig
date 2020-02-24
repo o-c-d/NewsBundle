@@ -7,7 +7,7 @@
                 </h1>
                 <p class="news-metadata">
                     <span class="metadata"><i class="fa fa-calendar"></i> {{ item.publishedAt|date('d/m/Y') }}</span>
-                {% if item.updatedBy is defined %}
+                {% if item.updatedBy is defined and item.updatedBy is not null %}
                     <span class="metadata"><i class="fa fa-user"></i> {{ item.updatedBy.username }}</span>
                 {% endif %}
                 </p>
